@@ -1,0 +1,21 @@
+[all]
+192.168.0.202 ansible_connection=ssh        ansible_user=pi
+192.168.0.200 ansible_connection=ssh        ansible_user=pi
+192.168.0.201 ansible_connection=ssh        ansible_user=pi
+192.168.0.203 ansible_connection=ssh        ansible_user=pi
+
+[master]
+192.168.0.202 ansible_connection=ssh        ansible_user=pi
+[workers]
+192.168.0.200 ansible_connection=ssh        ansible_user=pi
+192.168.0.201 ansible_connection=ssh        ansible_user=pi
+192.168.0.203 ansible_connection=ssh        ansible_user=pi
+
+[worker2]
+192.168.0.200 ansible_connection=ssh        ansible_user=pi
+
+[worker1]
+192.168.0.201 ansible_connection=ssh        ansible_user=pi
+
+[worker3]
+192.168.0.203 ansible_connection=ssh        ansible_user=pi

@@ -1,0 +1,41 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - helmChart:
+      appVersion: v2.7.4
+      version: 5.36.1
+    path: argo
+  - helmChart:
+      appVersion: v0.13.10
+      version: 0.13.10
+    path: metallb-system
+  - helmChart:
+      appVersion: 3.7.0
+      version: 3.7.0
+    path: openebs
+  - helmChart:
+      appVersion: v0.65.2
+      version: 46.8.0
+    path: kube-prometheus-stack
+  - helmChart:
+      appVersion: 1.13.1
+      version: 0.24.1
+    path: vault
+  - helmChart:
+      appVersion: 21.1.1
+      version: 15.0.0
+    path: keycloak
+  - helmChart:
+      appVersion: v1.12.2
+      version: v1.12.2
+    path: cert-manager
+  - helmChart:
+      appVersion: 1.8.0
+      version: 4.7.0
+    path: ingress-nginx
+  - helmChart:
+      appVersion: 0.6.4
+      version: 6.4.5
+    path: metrics-server
+  path: config
+kind: LockConfig

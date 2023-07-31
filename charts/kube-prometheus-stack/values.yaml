@@ -1,0 +1,57 @@
+defaultRules:
+  rules:
+    alertmanager: false
+alertmanager: 
+  enabled: false
+grafana: 
+  adminPassword: ref+vault://grafana/kube_stack?proto=http#/password
+  ingress: 
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - pi.home.lab
+    path: /grafana/
+    tls: 
+      - secretName: grafana-tls-secret
+        hosts:
+        - lab.home.lab
+    annotations:
+      cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
+  grafana.ini:
+    server:
+      domain: pi.home.lab
+      #root_url: "%(protocol)s://%(domain)s/"
+      root_url: https://pi.home.lab/grafana/
+      serve_from_sub_path: true
+  service:
+    enabled: true
+    port: 3000
+    targetPort: 3000
+    annotations: {}
+    labels: {}
+    portName: service
+  resources: 
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+global: 
+  persistence:
+    type: pvc
+    enabled: true
+    storageClass: "openebs-hostpath"
+    accessModes:
+      - ReadWriteOnce
+    size: 40Gi
+  autoscaling:
+    enabled: true
+  resources: 
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi

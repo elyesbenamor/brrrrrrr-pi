@@ -1,0 +1,8 @@
+---
+
+- name: Check about and/or manage reboot
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - reboot

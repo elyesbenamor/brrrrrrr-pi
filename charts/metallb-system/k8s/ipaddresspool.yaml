@@ -1,0 +1,24 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: first-pool
+spec:
+  addresses:
+  - 192.168.0.200-192.168.0.220
+---
+# apiVersion: metallb.io/v1beta1
+# kind: IPAddressPool
+# metadata:
+#   name: second-pool
+# spec:
+#   addresses:
+#   - 192.168.1.156-192.168.1.166
+# ---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: l2advertisement
+spec:
+  ipAddressPools:
+  - first-pool
+  # - second-pool

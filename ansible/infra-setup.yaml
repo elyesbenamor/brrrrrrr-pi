@@ -1,0 +1,8 @@
+---
+
+- name: Base setup for all servers
+  hosts: worker3
+  gather_subset: [ "min" ]
+  become: yes
+  roles:
+    - base-server

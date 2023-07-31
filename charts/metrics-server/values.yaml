@@ -1,0 +1,10 @@
+replicas: 3
+resources:
+  limits:
+     cpu: 250m
+     memory: 256Mi
+  requests:
+     cpu: 250m
+     memory: 256Mi
+apiService:
+  create: true

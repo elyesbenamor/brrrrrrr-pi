@@ -1,0 +1,11 @@
+---
+
+- name: Remove /etc/update-motd.d/10-help-text
+  file:
+    path: /etc/update-motd.d/10-help-text
+    state: absent
+
+- name: Remove /etc/update-motd.d/50-motd-news
+  file:
+    path: /etc/update-motd.d/50-motd-news
+    state: absent

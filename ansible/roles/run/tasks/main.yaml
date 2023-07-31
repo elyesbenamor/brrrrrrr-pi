@@ -1,0 +1,3 @@
+---
+- name: Run a script with arguments (free form)
+  ansible.builtin.script: bootstrap.sh 

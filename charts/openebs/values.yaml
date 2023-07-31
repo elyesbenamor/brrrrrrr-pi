@@ -1,0 +1,32 @@
+apiserver:
+  resources: 
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 200m
+      memory: 500Mi
+provisioner:
+  resources: 
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 200m
+      memory: 500Mi
+localprovisioner:
+  resources: 
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 200m
+      memory: 500Mi
+  hostpathClass:
+    basePath: /mnt/hd1/openebs
+  deviceClass: 
+    enabled: false
+ndm: 
+  enabled: false
+ndmOperator:
+  enabled: false

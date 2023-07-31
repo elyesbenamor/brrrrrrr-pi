@@ -1,0 +1,56 @@
+#@data/values
+---
+- name: argo
+  helmChart:
+    name: argo-cd
+    version: 5.36.1
+    repository:
+      url: https://argoproj.github.io/argo-helm
+- name: metallb-system
+  helmChart:
+    name: metallb
+    version: 0.13.10
+    repository:
+      url: https://metallb.github.io/metallb
+- name: openebs
+  helmChart:
+    name: openebs
+    version: 3.7.0
+    repository:
+      url: https://openebs.github.io/charts
+- name: kube-prometheus-stack
+  helmChart:
+    name: kube-prometheus-stack
+    version: 46.8.0
+    repository:
+      url: https://prometheus-community.github.io/helm-charts
+- name: vault
+  helmChart:
+    name: vault
+    version: 0.24.1
+    repository:
+      url: https://helm.releases.hashicorp.com
+- name: keycloak
+  helmChart:
+    name: keycloak
+    version: 15.0.0
+    repository:
+      url: https://charts.bitnami.com/bitnami
+- name: cert-manager
+  helmChart:
+    name: cert-manager
+    version: 1.12.2
+    repository:
+      url: https://charts.jetstack.io
+- name: ingress-nginx
+  helmChart:
+    name: ingress-nginx
+    version: 4.7.0
+    repository:
+      url: https://kubernetes.github.io/ingress-nginx
+- name: metrics-server
+  helmChart:
+    name: metrics-server
+    version: 6.4.5
+    repository:
+      url: https://charts.bitnami.com/bitnami

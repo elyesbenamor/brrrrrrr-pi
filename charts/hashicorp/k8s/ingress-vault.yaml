@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-vault
+  annotations:
+    cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: pi.home.lab
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: hashicorp-vault-ui
+                port:
+                  number: 8200
+            path: /
+    
+  # This section is only required if TLS is to be enabled for the Ingress
+  tls:
+    - hosts:
+      - pi.home.lab
+      secretName: vault-tls-secret

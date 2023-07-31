@@ -1,0 +1,35 @@
+---
+
+- block:
+    - name: Check for /var/run/reboot-required
+      stat:
+        path: /var/run/reboot-required
+        get_md5: no
+      register: reboot_required_file
+    
+    - name: Set would_need_reboot
+      set_fact:
+        would_need_reboot: "{{ reboot_required_file.stat.exists }}"
+
+  when: not force_reboot|bool
+
+- name: Set do_reboot
+  set_fact:
+    do_reboot: "{{ force_reboot|bool or (would_need_reboot|bool and allow_reboot|bool) }}"
+
+- name: Detect tag Name
+  set_fact:
+    tag_name_in_brackets: "({{ hostvars[inventory_hostname]['tags']['AiforaName']|default('') }})"
+
+- name: Highlight host if reboot required but not allowed/forced
+  fail:
+    msg: "### Reboot required for {{ inventory_hostname_short }} {{ tag_name_in_brackets }} ###"
+  when:
+    - would_need_reboot|default(false)|bool
+    - not do_reboot|bool
+  ignore_errors: true
+
+- name: Reboot
+  reboot:
+    reboot_timeout: 300
+  when: do_reboot|bool

@@ -1,0 +1,90 @@
+version: '3'
+env:
+  BASE_DIR: ./config
+  RELEASES_DIR: ./charts
+  OUTPUT_DIR: "output"
+  VALUES_FILE: "vendir.ytt.yml"
+  TEMPLATE_FILE: "vendir.yml"
+tasks:
+
+  generate_and_sync:
+    desc: Generate and sync files using vendir and ytt
+    silent: true
+    cmds:
+      - "if ! command -v ytt &> /dev/null; then echo 'Error: ytt is not installed. Please install ytt before running this script.'; exit 1; fi"
+      - "if ! command -v vendir &> /dev/null; then echo 'Error: vendir is not installed. Please install vendir before running this script.'; exit 1; fi"
+      - "ytt -f \"$TEMPLATE_FILE\" -f \"$VALUES_FILE\" --output-files \"$OUTPUT_DIR\""
+      - "if [ ! -d \"$OUTPUT_DIR\" ]; then echo 'Error: Failed to generate the output file.'; exit 1; fi"
+      - "vendir sync -f \"$OUTPUT_DIR\"/vendir.yml"
+      - "rm -rf \"$OUTPUT_DIR\""
+
+  deploy:
+    desc: Deploy a Helm chart
+    silent: true
+    cmds:
+      - task: validate_chart
+      - task: deploy_chart
+      - task: wait_k8s_custom
+      - task: deploy_custom
+  
+  upgrade:
+    desc: Deploy a Helm chart
+    silent: true
+    cmds:
+      - task: validate_chart
+      - task: upgrade_chart
+      - task: wait_k8s_custom
+      - task: deploy_custom
+
+  wait:
+    cmds:
+      - sleep 10
+  
+  wait_k8s_custom:
+    cmds:
+      - sleep 60
+    
+  uninstall:
+    desc: uninstall a Helm chart
+    silent: true
+    cmds:
+      - task: delete_chart
+      - task: wait
+      - task: remove_namespace
+
+  validate_chart:
+    desc: Validate a Helm chart
+    cmds:
+      - helm lint "${BASE_DIR}/${CHART_NAME}"
+
+  deploy_chart:
+    desc: Deploy a Helm chart
+    vars:
+      DEFAULT: ${CHART_NAME}/${CHART_NAME}
+    cmds:
+      - bash -c "vals eval -f ${RELEASES_DIR}/${CHART_NAME}/values.yaml > ${RELEASES_DIR}/${CHART_NAME}/${CHART_NAME}.yaml"
+      - helm install --create-namespace --namespace "$(basename ${BASE_DIR}/${CHART_NAME})" "$(basename ${BASE_DIR}/${CHART_NAME})"  $DEFAULT -f "${BASE_DIR}/${CHART_NAME}/values.yaml" -f "${RELEASES_DIR}/${CHART_NAME}/${CHART_NAME}.yaml"
+      - rm "${RELEASES_DIR}/${CHART_NAME}/${CHART_NAME}.yaml"
+
+  deploy_custom:
+    desc: deploy custom k8s resources
+    cmds:
+      - "if [ -d \"${RELEASES_DIR}/${CHART_NAME}/k8s\" ]; then kubectl apply -f ${RELEASES_DIR}/${CHART_NAME}/k8s/. --namespace $(basename ${BASE_DIR}/${CHART_NAME}) ; fi"
+
+  upgrade_chart:
+    desc: upgrading an existing chart ${CHART_NAME}/${CHART_NAME}
+    cmds:
+      - bash -c "vals eval -f ${RELEASES_DIR}/${CHART_NAME}/values.yaml > ${RELEASES_DIR}/${CHART_NAME}/${CHART_NAME}.yaml"
+      - helm upgrade --force --namespace "$(basename ${BASE_DIR}/${CHART_NAME})" "$(basename ${BASE_DIR}/${CHART_NAME})" $DEFAULT -f "${BASE_DIR}/${CHART_NAME}/values.yaml" -f "${RELEASES_DIR}/${CHART_NAME}/${CHART_NAME}.yaml"
+      - rm "${RELEASES_DIR}/${CHART_NAME}/${CHART_NAME}.yaml"
+      
+  delete_chart:
+    desc: Delete chart
+    cmds:
+      - helm uninstall "$(basename ${BASE_DIR}/${CHART_NAME})" --namespace "$(basename ${BASE_DIR}/${CHART_NAME})"
+  
+  remove_namespace:
+    desc: remove namespace
+    cmds:
+      - kubectl delete ns "$(basename ${BASE_DIR}/${CHART_NAME})"
+  

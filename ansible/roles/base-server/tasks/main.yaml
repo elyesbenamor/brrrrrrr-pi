@@ -1,0 +1,32 @@
+---
+
+- block:
+    - name: Check directories
+      stat:
+        path: '/home/ubuntu/.ssh'
+      register: directory_data
+
+    - debug: var=directory_data.stat.path
+
+    - name: Create directory if it doesn't already exist
+      file:
+        path: '/home/ubuntu/.ssh'
+        state: directory
+        mode: 0755
+        group: pi
+        owner: pi
+      when: not directory_data.stat.exists
+    - name: /home/ubuntu/.ssh/authorized_keys
+      template:
+        src: authorized_keys.j2
+        dest: /home/ubuntu/.ssh/authorized_keys
+        mode: '0600'
+      when: ssh_authorized_keys is defined
+
+- name: Clean up MOTD
+  import_tasks: motd.yaml
+
+- name: Upgrade all packages (conditional)
+  import_tasks: upgrade-all.yaml
+  when: upgrade_all|bool
+
