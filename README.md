@@ -95,3 +95,9 @@ CHART_NAME=cert-manager DEFAULT=cert-manager/cert-manager task deploy
 
 ##### ingress 
 CHART_NAME=ingress-nginx DEFAULT=ingress-nginx/ingress-nginx task deploy
+
+##### gitlab 
+CHART_NAME=gitlab DEFAULT=gitlab/gitlab task deploy
+
+##### s3 minio
+CHART_NAME=minio DEFAULT=bitnami/minio task deploy

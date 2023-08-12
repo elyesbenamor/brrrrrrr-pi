@@ -34,8 +34,12 @@ directories:
       version: 4.7.0
     path: ingress-nginx
   - helmChart:
-      appVersion: 0.6.4
-      version: 6.4.5
-    path: metrics-server
+      appVersion: v16.2.1
+      version: 7.2.1
+    path: gitlab
+  - helmChart:
+      appVersion: 2023.7.18
+      version: 12.7.0
+    path: minio
   path: config
 kind: LockConfig

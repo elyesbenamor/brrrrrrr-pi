@@ -1,0 +1,38 @@
+redis:
+  auth:
+    existingSecretKey: ref+vault://gitlab/redis?proto=http#/existingSecretKey
+
+postgresql:
+  auth:
+    password: ref+vault://gitlab/postgres?proto=http#/password
+    postgresPassword: ref+vault://gitlab/postgres?proto=http#/postgresPassword
+
+prometheus:
+  install: false
+  rbac:
+    create: false
+nginx-ingress:
+  enabled: false
+certmanager:
+  install: false
+  installCRDs: false
+  rbac:
+    create: false
+upgradeCheck:
+  enabled: false
+gitlab-runner:
+  install: false
+global:
+  minio:
+    enabled: false
+  kas:
+    enabled: false
+  ingress:
+    enabled: false
+    configureCertmanager: false
+  serviceAccount:
+    enabled: true
+gitlab:
+  toolbox:
+    enabled: false
+    

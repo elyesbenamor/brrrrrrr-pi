@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-keycloak
+  namespace: keycloak
+  annotations:
+    cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
+    nginx.ingress.kubernetes.io/forwarded-for-header: X-Forwarded-For
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: pi.home.lab
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: keycloak
+                port:
+                  number: 80
+            path: /
+    
+  # This section is only required if TLS is to be enabled for the Ingress
+  tls:
+    - hosts:
+      - pi.home.lab
+      secretName: keyclaok-tls-secret

@@ -1,4 +1,5 @@
 controller:
+  kind: DaemonSet
   resources:
     limits:
       cpu: 500m
@@ -9,3 +10,5 @@ controller:
   admissionWebhooks:
     enabled: false
   replicaCount: 3
+  config:
+    use-forwarded-headers: "true"

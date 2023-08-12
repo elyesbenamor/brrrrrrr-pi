@@ -1,35 +1,27 @@
+
+
+
 defaultRules:
   rules:
     alertmanager: false
 alertmanager: 
   enabled: false
 grafana: 
-  adminPassword: ref+vault://grafana/kube_stack?proto=http#/password
-  ingress: 
-    enabled: true
-    ingressClassName: nginx
-    hosts:
-      - pi.home.lab
-    path: /grafana/
-    tls: 
-      - secretName: grafana-tls-secret
-        hosts:
-        - lab.home.lab
-    annotations:
-      cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
-  grafana.ini:
-    server:
-      domain: pi.home.lab
-      #root_url: "%(protocol)s://%(domain)s/"
-      root_url: https://pi.home.lab/grafana/
-      serve_from_sub_path: true
+  adminPassword: ref+vault://kubernetes/kube_stack?proto=http#/password
   service:
     enabled: true
+    type: LoadBalancer
     port: 3000
     targetPort: 3000
-    annotations: {}
-    labels: {}
-    portName: service
+  deployment:
+    volumes:
+      - name: minio-dashboard-config-volume
+        configMap:
+          name: minio-dashboard-configmap
+    volumeMounts:
+      - name: minio-dashboard-config-volume
+        mountPath: /etc/grafana/dashboards
+        readOnly: true
   resources: 
     limits:
       cpu: 100m
@@ -37,6 +29,24 @@ grafana:
     requests:
       cpu: 100m
       memory: 128Mi
+  # dashboards:
+  #   minio-dashboard:
+  #     configMapName: minio-dashboard-configmap
+  #     items:
+  #       - key: minio
+  #         path: minio-dashboard.json
+
+    
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    additionalScrapeConfigs: 
+      - job_name: minio-job
+        bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwiZXhwIjo0ODQ1NDU3NDQ5fQ.5cV_jta8roh09afwQ4wmojeFKbx6MowY54w1KAKAZpKBycH9AZlVp73pRPdR3tHx7KWJvZnnx-XEaL6GbSP32Q
+        metrics_path: /minio/v2/metrics/cluster
+        scheme: http
+        static_configs:
+          - targets: ['minio.minio.svc.cluster.local:9000']
 
 global: 
   persistence:

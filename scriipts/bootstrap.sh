@@ -30,18 +30,18 @@ sudo sysctl --system > /dev/null 2>&1
 echo "[TASK 5]: Update the system & install required packages"
 # Update the system
 sudo apt-get update -qq -y ; sudo apt-get upgrade -qq -y 2>&1  ################################  system update making a lot of output 
-# Install necessary software
-sudo  apt-get install curl \
-      apt-transport-https \
-      vim \
-      nano \
-      git \
-      wget \
-      gnupg2 \
-      software-properties-common \
-      apt-transport-https \
-      lsb-release \
-      ca-certificates -qq -y 2>&1
+# # Install necessary software
+# sudo  apt-get install curl \
+#       apt-transport-https \
+#       vim \
+#       nano \
+#       git \
+#       wget \
+#       gnupg2 \
+#       software-properties-common \
+#       apt-transport-https \
+#       lsb-release \
+#       ca-certificates -qq -y 2>&1
 
 
 echo "[TASK 6] Install containerd runtime"             
@@ -69,11 +69,11 @@ sudo systemctl enable --now kubelet 2>&1
 
 
 
-echo "[TASK 9] Update /etc/hosts file to comply with our setup"
-cat >>/etc/hosts<<EOF
-192.168.0.202   master.example.com     master
-192.168.0.201   worker1.example.com    worker1
-192.168.0.200   worker2.example.com    worker2
-192.168.0.203   worker2.example.com    worker3
-EOF
+# echo "[TASK 9] Update /etc/hosts file to comply with our setup"
+# cat >>/etc/hosts<<EOF
+# 192.168.0.202   master.example.com     master
+# 192.168.0.201   worker1.example.com    worker1
+# 192.168.0.200   worker2.example.com    worker2
+# 192.168.0.203   worker2.example.com    worker3
+# EOF
 sudo reboot

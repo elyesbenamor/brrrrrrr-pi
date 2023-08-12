@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-minio
+  namespace: minio
+  annotations:
+    cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: pi.home.lab
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: minio
+                port:
+                  number: 9001
+            path: /minio
+    
+  # This section is only required if TLS is to be enabled for the Ingress
+  tls:
+    - hosts:
+      - pi.home.lab
+      secretName: minio-crt

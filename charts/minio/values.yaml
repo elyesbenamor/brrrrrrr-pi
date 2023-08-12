@@ -1,0 +1,47 @@
+mode: distributed
+auth:
+  rootUser: ref+vault://kubernetes/minio?proto=http#/root_user
+  rootPassword: ref+vault://kubernetes/minio?proto=http#/root_password
+deployment:
+  updateStrategy:
+   type: RollingUpdate
+
+podLabels: 
+  usage: s3bucket
+resources:
+  limits:
+     cpu: 500m
+     memory: 2Gi
+  requests:
+     cpu: 500m
+     memory: 2Gi
+persistence:
+  enabled: true
+  storageClass: "openebs-hostpath"
+  size: 50Gi
+service:
+  ## @param service.type MinIO&reg; service type
+  ##
+  type: LoadBalancer
+  labels: 
+    prometheus: minio
+metrics:
+  serviceMonitor:
+    enabled: true
+    namespace: "kube-prometheus-stack"
+    scrapeTimeout: "30s"
+    labels: 
+      prometheus: minio
+  prometheusRule:
+    enabled: true
+  rules: 
+    - alert: minio cluster nodes offline
+      annotations:
+        summary: "minio cluster nodes offline"
+        description: "minio cluster nodes offline, pod {{`{{`}} $labels.pod {{`}}`}} service {{`{{`}} $labels.job {{`}}`}} offline"
+      for: 10m
+      expr: minio_cluster_nodes_offline_total > 0
+      labels:
+        severity: critical
+        group: PaaS
+

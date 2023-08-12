@@ -3,3 +3,6 @@ resource "random_string" "generate" {
   special          = false
   override_special = "/+"
 }
+output "generated_secrets" {
+  value = random_string.generate.result
+}

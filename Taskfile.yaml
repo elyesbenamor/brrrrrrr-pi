@@ -5,6 +5,7 @@ env:
   OUTPUT_DIR: "output"
   VALUES_FILE: "vendir.ytt.yml"
   TEMPLATE_FILE: "vendir.yml"
+  CUSTOM: no
 tasks:
 
   generate_and_sync:
@@ -24,17 +25,19 @@ tasks:
     cmds:
       - task: validate_chart
       - task: deploy_chart
-      - task: wait_k8s_custom
-      - task: deploy_custom
-  
-  upgrade:
+    
+  deploy_custom_k8s:
     desc: Deploy a Helm chart
+    silent: true
+    cmds:
+      - task: deploy_custom
+
+  upgrade:
+    desc: upgrade a Helm chart
     silent: true
     cmds:
       - task: validate_chart
       - task: upgrade_chart
-      - task: wait_k8s_custom
-      - task: deploy_custom
 
   wait:
     cmds:

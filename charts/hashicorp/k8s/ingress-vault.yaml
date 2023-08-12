@@ -2,8 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-vault
+  namespace: hashicorp
   annotations:
     cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
+    nginx.ingress.kubernetes.io/forwarded-for-header: X-Forwarded-For
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
 spec:
   ingressClassName: nginx
   rules:
