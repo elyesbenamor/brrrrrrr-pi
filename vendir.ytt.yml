@@ -60,3 +60,27 @@
     version: 12.7.0
     repository:
       url: https://charts.bitnami.com/bitnami
+- name: homer
+  helmChart:
+    name: homer
+    version: 0.7.1
+    repository:
+      url: https://charts.gabe565.com
+- name: postgresql
+  helmChart:
+    name: postgresql
+    version: 12.8.2
+    repository:
+      url: https://charts.bitnami.com/bitnami
+- name: mysql
+  helmChart:
+    name: mysql
+    version: 9.11.0
+    repository:
+      url: https://charts.bitnami.com/bitnami
+- name: reloader
+  helmChart:
+    name: reloader
+    version: 1.0.36
+    repository:
+      url: https://stakater.github.io/stakater-charts

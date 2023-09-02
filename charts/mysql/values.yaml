@@ -1,0 +1,30 @@
+architecture: replication
+auth:
+  rootPassword: ref+vault://kubernetes/mysql?proto=http#/rootPassword
+  createDatabase: true
+  database: ref+vault://kubernetes/mysql?proto=http#/database
+  username: ref+vault://kubernetes/mysql?proto=http#/username
+  password: ref+vault://kubernetes/mysql?proto=http#/password
+  replicationPassword: ref+vault://kubernetes/mysql?proto=http#/replicationPassword
+primary:
+  resources:
+    limits:
+      cpu: 250m
+      memory: 256Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  persistence:
+    storageClass: "openebs-hostpath"
+secondary:
+  name: secondary
+  replicaCount: 2
+  resources:
+    limits:
+      cpu: 250m
+      memory: 256Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  persistence:
+    storageClass: "openebs-hostpath"

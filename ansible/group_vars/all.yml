@@ -10,3 +10,8 @@ upgrade_all: false
 # ssh
 ssh_authorized_keys: |-
   ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRRoIHOBNt77IlLFJPVHp+vjFSAeSyomPSP7z4ekS552KO3/7WfJmvqZcW3gXB7tlkdJwI40QQ9/YxstMnUoIOXlu1tWzIxj3MtYqB9Zt02NdYSPZPCYcwNSAHLHLlW8BM7xaAF733UWO8Js+S7A6wMAbvTMm5KeQCThjrqsefwd69aOIm/+FsWICidpKEsnyf5DJP0UXhCwubz7G/2ehxNU5rs0pvtruPhISapNv+9wQduPPWvh2A279ROB/h69i6FDZHYXvOCSXV+oLaFlKk5sOawvEIC57hvym0LjahYK7IyTa59di6g8nMQkxhLTY1w/fjvkijKfdP8MQ2Ipn2FXIB+97M3Fz9kZXyCp0fMlwtifpvml1iGU6aGgAIrq3ifujjLvbaonZN5qIh+nk0qe4YOJq2Mm22c1zscCC1wLM5Az8LLDXF1XzN0ONOCNkP3zompE6+abf3i2NBR1Ns1bvtxp8QzSBoWhLCclNxjIrRpc9mMe3f/gl2FqCqkQU= elyes@elyess-MBP
+
+namespaces:
+  - minio
+  - hashicorp
+  - kube-prometheus-stack

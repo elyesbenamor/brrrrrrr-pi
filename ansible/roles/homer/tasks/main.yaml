@@ -1,0 +1,5 @@
+- name: Create list to store service info
+  set_fact:
+    service_info_dict: {}
+- name: k8s config
+  import_tasks: loadbalancer-ips.yaml

@@ -1,22 +1,22 @@
 injector:
   metrics:
     enabled: true
-server: 
+server:
   annotations:
     reloader.stakater.com/auto: "true"
-  dataStorage:
-    storageClass: openebs-hostpath
-    size: 30Gi
   auditStorage:
     enabled: true
     storageClass: openebs-hostpath
+  dataStorage:
+    size: 30Gi
+    storageClass: openebs-hostpath
   resources:
-    requests:
-      memory: 256Mi
-      cpu: 250m
     limits:
-      memory: 256Mi
       cpu: 250m
-ui: 
+      memory: 256Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+ui:
   enabled: true
-  serviceType: "LoadBalancer"
+  serviceType: LoadBalancer

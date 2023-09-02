@@ -1,0 +1,30 @@
+---
+
+
+- name: k8s config
+  ansible.builtin.include_role:
+    name: k8s-conf
+
+- name: Get current LoadBalancer IPs from Kubernetes
+  kubernetes.core.k8s_info:
+    kubeconfig: "{{ kube_config }}"
+    api_version: v1
+    kind: Service
+    namespace: kube-prometheus-stack
+  register: service_info
+
+- name: Filter services with LoadBalancer
+  set_fact:
+    loadbalancer_services: "{{ service_info.resources | selectattr('status.loadBalancer.ingress', 'defined') | list }}"
+
+- name: Extract service info using json_query
+  set_fact:
+    service_info_list: "{{ loadbalancer_services | json_query('[].[metadata.name, status.loadBalancer.ingress[0].ip]') }}"
+    
+
+# - name: Extract Load Balancer IP And Service Name
+  # set_fact:
+    # loadbalancer_ip: "{{ loadbalancer_services[0].status.loadBalancer.ingress[0].ip }}"
+    # service_name: "{{ loadbalancer_services[0].metadata.name }}"      
+- debug:
+    var: service_info_list

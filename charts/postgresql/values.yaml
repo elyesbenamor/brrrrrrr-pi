@@ -1,0 +1,19 @@
+auth:
+  enablePostgresUser: true
+  postgresPassword: ref+vault://kubernetes/postgresql?proto=http#/postgresPassword
+  username: ref+vault://kubernetes/postgresql?proto=http#/username
+  password: ref+vault://kubernetes/postgresql?proto=http#/password
+  database: ref+vault://kubernetes/postgresql?proto=http#/database
+  replicationUsername: ref+vault://kubernetes/postgresql?proto=http#/username
+  ## @param auth.replicationPassword Password for the replication user. Ignored if `auth.existingSecret` is provided
+  ##
+  replicationPassword: ref+vault://kubernetes/postgresql?proto=http#/postgresPassword
+primary:
+  persistence:
+    storageClass: "openebs-hostpath"
+
+serviceAccount:
+  ## @param serviceAccount.create Enable creation of ServiceAccount for PostgreSQL pod
+  ##
+  create: true
+

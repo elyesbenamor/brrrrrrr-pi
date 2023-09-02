@@ -1,0 +1,5 @@
+reloader:
+  enableHA: true
+  deployment:
+    # If you wish to run multiple replicas set reloader.enableHA = true
+    replicas: 2

@@ -41,5 +41,21 @@ directories:
       appVersion: 2023.7.18
       version: 12.7.0
     path: minio
+  - helmChart:
+      appVersion: v23.05.1
+      version: 0.7.1
+    path: homer
+  - helmChart:
+      appVersion: 15.4.0
+      version: 12.8.2
+    path: postgresql
+  - helmChart:
+      appVersion: 8.0.34
+      version: 9.11.0
+    path: mysql
+  - helmChart:
+      appVersion: v1.0.36
+      version: 1.0.36
+    path: reloader
   path: config
 kind: LockConfig

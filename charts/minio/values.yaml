@@ -1,4 +1,6 @@
 mode: distributed
+commonAnnotations:
+  reloader.stakater.com/auto: "true"
 auth:
   rootUser: ref+vault://kubernetes/minio?proto=http#/root_user
   rootPassword: ref+vault://kubernetes/minio?proto=http#/root_password
@@ -20,11 +22,10 @@ persistence:
   storageClass: "openebs-hostpath"
   size: 50Gi
 service:
-  ## @param service.type MinIO&reg; service type
-  ##
   type: LoadBalancer
   labels: 
     prometheus: minio
+  loadBalancerIP: "192.168.1.169"
 metrics:
   serviceMonitor:
     enabled: true
@@ -44,4 +45,7 @@ metrics:
       labels:
         severity: critical
         group: PaaS
-
+provisioning:
+  enabled: true
+  usersExistingSecrets:
+    - centralized-minio-users

@@ -1,5 +1,5 @@
 resource "random_string" "generate" {
-  length           = 128
+  length           = var.length
   special          = false
   override_special = "/+"
 }

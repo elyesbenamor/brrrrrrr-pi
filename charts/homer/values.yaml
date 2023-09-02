@@ -1,0 +1,50 @@
+persistence:
+  config:
+    enabled: true
+    storageClass: "openebs-hostpath"
+    size: 3Gi
+    mountPath: www/assets/config.yml
+    retain: false
+ingress:
+  main:
+    enabled: true
+    ingressClassName: "nginx"
+    annotations:
+      cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
+    hosts:
+      - host: pi.home.lab
+        paths:
+          - path: /myhome
+            pathType: Prefix
+            service:
+              # -- Overrides the service name reference for this path
+              name: homer
+              # -- Overrides the service port reference for this path
+              port: 8080
+    tls:
+      - secretName: homer-tls-secret
+        hosts:
+          - pi.home.lab
+
+env: 
+  SUBFOLDER: "/myhome"
+  DATA_FOLDER: "/www/assets/config.yml"
+
+serviceMonitor:
+  main:
+    enabled: true
+    serviceName: homer
+controller:
+  replicas: 4
+  annotations: 
+    reloader.stakater.com/auto: "true"
+configmap:
+  config:
+    enabled: true
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

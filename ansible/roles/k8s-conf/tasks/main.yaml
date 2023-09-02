@@ -1,0 +1,7 @@
+---
+- name: Get k8s config 
+  command: "kubectl config view --raw --output=yaml"
+  register: kube_config
+
+- set_fact:
+    kube_config: "{{ kube_config.stdout | from_yaml }}"

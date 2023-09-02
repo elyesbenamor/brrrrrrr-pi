@@ -1,3 +1,8 @@
 speaker:
+  podAnnotations:
+    reloader.stakater.com/auto: "true"
   frr:
     enabled: false
+controller: 
+  podAnnotations: 
+    reloader.stakater.com/auto: "true"

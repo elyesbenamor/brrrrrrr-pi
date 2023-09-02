@@ -22,31 +22,19 @@ module "read_only_approle" {
   policy_content    = file("policies/read-only.hcl")
   vault_policy_name = "read-only-approle-policy"
 }
-module "minio_secret" {
-  source    = "./modules/secrets"
-}
 
-module "minio_vault_secrets" {
-  source = "./modules/vault"
-  path = "kubernetes"
-  type = "kv-v2"
-  name = "minio"
-  data_json = {
-    root_user       = "minio",
-    root_password       = base64encode(module.minio_secret.generated_secrets)
-  }
-}
-module "grafana_secret" {
-  source    = "./modules/secrets"
-}
 
-module "grafana_vault_secrets" {
-  source = "./modules/vault"
-  path = "kubernetes"
-  create_resource = false
-  type = "kv-v2"
-  name = "kube_stack"
-  data_json = {
-    password       = base64encode(module.grafana_secret.generated_secrets)
+module "user_secret" {
+  source = "./modules/secrets"
+  length = 20
+}
+module "userpass" {
+  source            = "./modules/userpass"
+  policy_content    = file("policies/root.hcl")
+  vault_policy_name = "user-root-approle-policy"
+  user_names        = ["firas", "ebenamor"]
+  user_passwords = {
+    "firas"    = base64encode(module.user_secret.generated_secrets)
+    "ebenamor" = base64encode(module.user_secret.generated_secrets)
   }
 }
