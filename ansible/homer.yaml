@@ -1,7 +1,0 @@
----
-
-- name: Homer config update
-  hosts: localhost
-  gather_facts: no
-  roles:
-    - homer
