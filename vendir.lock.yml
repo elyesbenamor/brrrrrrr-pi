@@ -57,5 +57,9 @@ directories:
       appVersion: v1.0.36
       version: 1.0.36
     path: reloader
+  - helmChart:
+      appVersion: 1.16.0
+      version: 1.0.0
+    path: semaphore
   path: config
 kind: LockConfig

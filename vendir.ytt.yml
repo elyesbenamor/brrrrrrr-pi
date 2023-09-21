@@ -84,3 +84,9 @@
     version: 1.0.36
     repository:
       url: https://stakater.github.io/stakater-charts
+- name: semaphore
+  helmChart:
+    name: semaphore
+    version: 1.0.0
+    repository:
+      url: https://elyesbenamor.github.io/helm-semaphore/charts/
