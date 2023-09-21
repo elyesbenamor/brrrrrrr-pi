@@ -71,6 +71,10 @@ module "semaphore_secret" {
   source = "./modules/secrets"
   length = 15
 }
+module "semaphore_db_secret" {
+  source = "./modules/secrets"
+  length = 15
+}
 
 module "semaphore_vault_secrets" {
   source          = "./modules/vault"
@@ -81,6 +85,7 @@ module "semaphore_vault_secrets" {
   data_json = {
     username         = "admin"
     password         = base64encode(module.semaphore_secret.generated_secrets)
+    databasepass  = base64encode(module.semaphore_db_secret.generated_secrets)
   }
 }
 module "ben_secret" {
