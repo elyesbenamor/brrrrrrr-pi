@@ -20,32 +20,6 @@ resources:
 persistence:
   enabled: true
   storageClass: "openebs-hostpath"
-  size: 50Gi
+  size: 10Gi
 service:
-  type: LoadBalancer
-  labels: 
-    prometheus: minio
-  loadBalancerIP: "192.168.1.169"
-metrics:
-  serviceMonitor:
-    enabled: true
-    namespace: "kube-prometheus-stack"
-    scrapeTimeout: "30s"
-    labels: 
-      prometheus: minio
-  prometheusRule:
-    enabled: true
-  rules: 
-    - alert: minio cluster nodes offline
-      annotations:
-        summary: "minio cluster nodes offline"
-        description: "minio cluster nodes offline, pod {{`{{`}} $labels.pod {{`}}`}} service {{`{{`}} $labels.job {{`}}`}} offline"
-      for: 10m
-      expr: minio_cluster_nodes_offline_total > 0
-      labels:
-        severity: critical
-        group: PaaS
-provisioning:
-  enabled: true
-  usersExistingSecrets:
-    - centralized-minio-users
+  type: NodePort

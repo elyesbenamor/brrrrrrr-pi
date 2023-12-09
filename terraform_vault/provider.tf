@@ -25,11 +25,11 @@ provider "helm" {
 }
 provider "vault" {
   alias = "vault-transit"
-  address = "xxx"
-  token = "xxx"
+  address = "xx"
+  token = "xx"
 }
 provider "vault" {
   alias = "vault-1"
-  address = "xxxx"
-  token = "xxx"
+  address = "xx"
+  token = "xx"
 }
