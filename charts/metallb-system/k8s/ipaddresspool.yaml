@@ -4,23 +4,24 @@ metadata:
   name: first-pool
 spec:
   addresses:
-  - 192.168.1.35-192.168.1.45
----
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  name: second-pool
-spec:
-  addresses:
-  - 192.168.1.220-192.168.1.230
----
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  name: third-pool
-spec:
-  addresses:
-  - 192.168.1.168-192.168.1.178
+  - xxx
+  #- 192.168.1.35-192.168.1.45
+# ---
+# apiVersion: metallb.io/v1beta1
+# kind: IPAddressPool
+# metadata:
+#   name: second-pool
+# spec:
+#   addresses:
+#   - xxxx
+# ---
+# apiVersion: metallb.io/v1beta1
+# kind: IPAddressPool
+# metadata:
+#   name: third-pool
+# spec:
+#   addresses:
+#   - xxxx
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -29,5 +30,3 @@ metadata:
 spec:
   ipAddressPools:
   - first-pool
-  - second-pool
-  - third-pool

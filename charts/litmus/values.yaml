@@ -1,0 +1,27 @@
+portal:
+  frontend:
+    service:
+      type: NodePort
+mongodb:
+  image:
+    registry: docker.io
+    repository: mongodb
+    tag: 7.0.4
+  persistence:
+    storageClass: "openebs-hostpath"
+  arbiter: 
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 100
+      periodSeconds: 20
+      timeoutSeconds: 10
+      failureThreshold: 6
+      successThreshold: 1
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 100
+      periodSeconds: 20
+      timeoutSeconds: 10
+      failureThreshold: 6
+      successThreshold: 1
+

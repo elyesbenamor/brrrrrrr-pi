@@ -7,23 +7,36 @@ defaultRules:
 alertmanager: 
   enabled: false
 grafana: 
-  adminPassword: ref+vault://kubernetes/kube_stack?proto=http#/password
+  adminPassword: ref+vault://kube-stack/kv/grafana?proto=http#/password
   podAnnotations:
     reloader.stakater.com/auto: "true"
-  service:
+  readinessProbe:
+    httpGet:
+      path: /api/health
+      port: 3000
+    initialDelaySeconds: 600
+
+  livenessProbe:
+    httpGet:
+      path: /api/health
+      port: 3000
+    initialDelaySeconds: 600
+    timeoutSeconds: 30
+    failureThreshold: 10
+  nodeSelector:
+    kubernetes.io/hostname: master
+  persistence:
     enabled: true
-    type: LoadBalancer
-    port: 3000
-    targetPort: 3000
-  deployment:
-    volumes:
-      - name: minio-dashboard-config-volume
-        configMap:
-          name: minio-dashboard-configmap
-    volumeMounts:
-      - name: minio-dashboard-config-volume
-        mountPath: /etc/grafana/dashboards
-        readOnly: true
+    storageClassName: "openebs-hostpath"
+  # deployment:
+  #   volumes:
+  #     - name: minio-dashboard-config-volume
+  #       configMap:
+  #         name: minio-dashboard-configmap
+  #   volumeMounts:
+  #     - name: minio-dashboard-config-volume
+  #       mountPath: /etc/grafana/dashboards
+  #       readOnly: true
   resources: 
     limits:
       cpu: 100m
@@ -42,16 +55,28 @@ grafana:
 prometheus:
   prometheusSpec:
     serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
+    # additionalScrapeConfigs: 
+    #   - job_name: minio-job
+    #     bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwiZXhwIjo0ODQ1NDU3NDQ5fQ.5cV_jta8roh09afwQ4wmojeFKbx6MowY54w1KAKAZpKBycH9AZlVp73pRPdR3tHx7KWJvZnnx-XEaL6GbSP32Q
+    #     metrics_path: /minio/v2/metrics/cluster
+    #     scheme: http
+    #     static_configs:
+    #       - targets: ['minio.minio.svc.cluster.local:9000']
     additionalScrapeConfigs: 
-      - job_name: minio-job
-        bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwiZXhwIjo0ODQ1NDU3NDQ5fQ.5cV_jta8roh09afwQ4wmojeFKbx6MowY54w1KAKAZpKBycH9AZlVp73pRPdR3tHx7KWJvZnnx-XEaL6GbSP32Q
-        metrics_path: /minio/v2/metrics/cluster
-        scheme: http
-        static_configs:
-          - targets: ['minio.minio.svc.cluster.local:9000']
-  service:
-    type: "LoadBalancer"
-    loadBalancerIP: "192.168.1.222"
+    - job_name: vault
+      authorization:
+        credentials: "hvs.CAESIB9boDtxyYT3AMBWeCeN7EjnAlZsma827nbD0l9PlNTqGh4KHGh2cy44bzNjckMwTTV1cUl6bHF5SWFVTngxeHo"
+      metrics_path: /v1/sys/metrics
+      scheme: http
+      params:
+        format: ['prometheus']
+      static_configs:
+        - targets: ['vault-internal.vault-1.svc.cluster.local:8200']
+  # service:
+  #   type: "LoadBalancer"
+  #   loadBalancerIP: "192.168.1.222"
 
 global: 
   persistence:

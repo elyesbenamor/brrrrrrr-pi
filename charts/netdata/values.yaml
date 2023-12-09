@@ -1,0 +1,36 @@
+
+
+
+service:
+  type: NodePort
+  port: 19999
+  annotations: {}
+
+
+ingress:
+  enabled: false
+
+
+parent:
+
+  database:
+    persistence: true
+    ## Set '-' as the storageclass to get a volume from the default storage class.
+    storageclass: "openebs-hostpath"
+    volumesize: 2Gi
+
+  alarms:
+    persistence: true
+    ## Set '-' as the storageclass to get a volume from the default storage class.
+    storageclass: "openebs-hostpath"
+    volumesize: 1Gi
+
+k8sState:
+  enabled: true
+  
+
+  persistence:
+    enabled: true
+    ## Set '-' as the storageclass to get a volume from the default storage class.
+    storageclass: "openebs-hostpath"
+    volumesize: 1Gi

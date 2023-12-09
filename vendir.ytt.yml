@@ -21,7 +21,7 @@
 - name: kube-prometheus-stack
   helmChart:
     name: kube-prometheus-stack
-    version: 46.8.0
+    version: 55.0.0
     repository:
       url: https://prometheus-community.github.io/helm-charts
 - name: vault
@@ -90,3 +90,51 @@
     version: 1.0.0
     repository:
       url: https://elyesbenamor.github.io/helm-semaphore/charts/
+
+- name: promtail 
+  helmChart:
+    name: promtail 
+    version: 6.15.3
+    repository:
+      url: https://grafana.github.io/helm-charts
+
+- name: loki 
+  helmChart:
+    name: loki 
+    version: 5.39.0
+    repository:
+      url: https://grafana.github.io/helm-charts
+
+- name: trivy-operator 
+  helmChart:
+    name: trivy-operator
+    version: 0.19.1
+    repository:
+      url: https://aquasecurity.github.io/helm-charts/
+- name: harbor  
+  helmChart:
+    name: harbor 
+    version: 1.13.1
+    repository:
+      url: https://helm.goharbor.io
+
+- name: litmus   
+  helmChart:
+    name: litmus  
+    version: 3.0.3
+    repository:
+      url: https://litmuschaos.github.io/litmus-helm/
+
+- name: netdata   
+  helmChart:
+    name: netdata  
+    version: 3.7.78
+    repository:
+      url: https://netdata.github.io/helmchart
+
+- name: vault-raft-snapshot-agent   
+  helmChart:
+    name: vault-raft-snapshot-agent  
+    version: 0.4.7
+    repository:
+      url: https://argelbargel.github.io/vault-raft-snapshot-agent-helm/

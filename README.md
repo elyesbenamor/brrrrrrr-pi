@@ -100,4 +100,4 @@ CHART_NAME=ingress-nginx DEFAULT=ingress-nginx/ingress-nginx task deploy
 CHART_NAME=gitlab DEFAULT=gitlab/gitlab task deploy
 
 ##### s3 minio
-CHART_NAME=minio DEFAULT=bitnami/minio task deploy
+CHART_NAME=minio DEFAULT=bitnami/minio task deploy 

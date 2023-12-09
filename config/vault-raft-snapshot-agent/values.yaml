@@ -1,0 +1,71 @@
+global:
+  # -- allows to override the release's namespace
+  # @default -- `.Release.Namespace`
+  namespace:
+
+# -- overrides the generated full-name for generated resources
+# @default -- release-name + chart-name truncated to 63 chars
+fullnameOverride:
+# -- overrides the generated name for generated resources
+# @default -- `.Chart.Name`
+nameOverride:
+
+deployment:
+  # -- additional annotation to add to the pod's metadata
+  extraAnnotations: {}
+  # -- additional environment-variables to add to the pod
+  extraEnv: []
+  # -- additional environment-refs to add to the pod
+  extraEnvFrom: []
+  # -- additional volumes for the container. configures the pods `volumeMounts` and `volumes`-sections:
+  # <pre>- name: my-volume<br>  mountPath: /my-path<br>  emptyDir: {}</pre>
+  # `name` and `mountPath` are used both in `volumeMounts` and `volumes`, `readOnly` only applies to
+  # `volumeMounts` and any other key is added to `volumes` only
+  extraVolumes: []
+  strategy:
+    # -- Update-strategy for the agent's pods
+    #    `Recreate` guarantees that no two snapshots get taken at the same time
+    #    `RollingUpdate` ensures that there's always one instance of the agent running
+    type: "Recreate"
+  image:
+    # -- Image that is deployed (change e.g. for private registry-proxy)
+    repo: ghcr.io/argelbargel/vault-raft-snapshot-agent
+    # -- (string) the image's tag
+    # @default -- `.Chart.AppVersion`
+    tag:
+    # -- New releases of vault-raft-snapshot-agent always change the
+    #    `.Chart.AppVersion` of this chart thus must only be changed
+    #    if you use another repository than the default
+    pullPolicy: IfNotPresent
+  # -- (int) see [kubernetes docs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
+  #    You might want to change this to a small value to avoid cluttering up the
+  #    UI of a Continuous Delivery Tool like Argo-CD
+  revisionHistoryLimit:
+
+# -- Defines the contents of the configuration-file for vault-raft-snapshot-agent.
+#    Except for `local_storage` the keys and values are the same as in the agent's
+#    [configuration file](https://github.com/Argelbargel/vault-raft-snapshot-agent)
+config:
+  # -- Url to the vault-API on the *leader* of your vault-cluster, e.g. `https?://vault-active.<vault-namespace>.svc.cluster.local:<vault-server service-port>`
+  vault:
+    url: http://127.0.0.1:8200
+    auth:
+      kubernetes:
+        role: vault-raft-snapshot-agent
+  snapshots:
+    frequency: 1h
+    retain: 72
+    storages:
+      local:
+        # -- Enables/disables the local storage of snaphots.
+        #    If disabled the corresponding volume and volume-mounts will not be created
+        enabled: true
+        # @ignored
+        path: /vault/snapshots
+        # -- Defines the kind of volume used to store the snapshots locally.
+        #    If you specify `persistentVolumeClaim` the chart can generate the
+        #    PVC for you. Just specify the claim as you would [normally do](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#claims-as-volumes)
+        #    and add the property `create: true` and the relevant properties of your [PersistentVolumeClaimSpec]()
+        #    as key of `persistentVolumeClaim`.
+        volume:
+          emptyDir: {}

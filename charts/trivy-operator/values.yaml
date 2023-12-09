@@ -1,0 +1,16 @@
+operator:
+  metricsVulnIdEnabled: true
+  metricsConfigAuditInfo: true
+  metricsRbacAssessmentInfo: true 
+  metricsInfraAssessmentInfo: true
+  metricsImageInfo: true
+  metricsClusterComplianceInfo: true
+
+trivy:
+  ignoreUnfixed: true
+  storageClassName: "openebs-hostpath"
+  severity: HIGH,CRITICAL
+trivyOperator:
+  reportResourceLabels:
+    source: trivy
+

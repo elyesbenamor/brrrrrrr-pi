@@ -14,8 +14,8 @@ directories:
       version: 3.7.0
     path: openebs
   - helmChart:
-      appVersion: v0.65.2
-      version: 46.8.0
+      appVersion: v0.70.0
+      version: 55.0.0
     path: kube-prometheus-stack
   - helmChart:
       appVersion: 1.13.1
@@ -61,5 +61,33 @@ directories:
       appVersion: 1.16.0
       version: 1.0.0
     path: semaphore
+  - helmChart:
+      appVersion: 2.9.2
+      version: 6.15.3
+    path: promtail
+  - helmChart:
+      appVersion: 2.9.2
+      version: 5.39.0
+    path: loki
+  - helmChart:
+      appVersion: 0.17.1
+      version: 0.19.1
+    path: trivy-operator
+  - helmChart:
+      appVersion: 2.9.1
+      version: 1.13.1
+    path: harbor
+  - helmChart:
+      appVersion: 3.0.0
+      version: 3.0.3
+    path: litmus
+  - helmChart:
+      appVersion: v1.44.0
+      version: 3.7.78
+    path: netdata
+  - helmChart:
+      appVersion: v0.10.4
+      version: 0.4.7
+    path: vault-raft-snapshot-agent
   path: config
 kind: LockConfig
