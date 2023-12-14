@@ -1,0 +1,23 @@
+mode: distributed
+auth:
+  rootUser: minio
+  rootPassword: AKIAIOSFODNN7EXAMPLE
+deployment:
+  updateStrategy:
+   type: RollingUpdate
+
+podLabels: 
+  usage: s3bucket
+resources:
+  limits:
+     cpu: 100m
+     memory: 1Gi
+persistence:
+  enabled: true
+  storageClass: "openebs-hostpath"
+  size: 3Gi
+service:
+  type: NodePort
+  nodePorts:
+    api: "30023"
+    console: "30024"

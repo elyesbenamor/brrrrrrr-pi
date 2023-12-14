@@ -10,16 +10,13 @@ deployment:
 
 podLabels: 
   usage: s3bucket
-resources:
-  limits:
-     cpu: 500m
-     memory: 2Gi
-  requests:
-     cpu: 500m
-     memory: 2Gi
+
 persistence:
   enabled: true
   storageClass: "openebs-hostpath"
-  size: 10Gi
+  size: 5Gi
 service:
   type: NodePort
+statefulset:
+  replicaCount: 2
+  drivesPerNode: 2

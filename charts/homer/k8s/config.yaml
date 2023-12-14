@@ -147,30 +147,3 @@ data:
             # class: "green" # optional custom CSS class for card, useful with custom stylesheet
             # background: red # optional color for card to set color directly without custom stylesheet
             tagstyle: "is-success"
-      - name: "Storage"
-        icon: "fas fa-hdd"
-        items:
-          - name: "S3 stoarge"
-            icon: "fa-solid fa-bucket"
-            #logo: "assets/tools/sample.png"
-            # subtitle: "Network-wide Ad Blocking" # optional, if no subtitle is defined, PiHole statistics will be shown
-            tag: "app"
-            agstyle: "is-success"
-            subtitle: "S3 storage and management"
-            url: "http://192.168.1.169:9001/"
-            target: "_blank" # optional html a tag target attribute
-            # class: "green" # optional custom CSS class for card, useful with custom stylesheet
-            # background: red # optional color for card to set color directly without custom stylesheet
-      - name: "Apps"
-        icon: "fa-brands fa-uncharted"
-        items:
-          - name: "Semaphore ansible"
-            icon: "fa-solid fa-toggle-on" 
-            # subtitle: "Network-wide Ad Blocking" # optional, if no subtitle is defined, PiHole statistics will be shown
-            tag: "app"
-            agstyle: "is-success"
-            subtitle: "S3 storage and management"
-            url: "http://192.168.1.220:3000/"
-            target: "_blank" # optional html a tag target attribute
-            # class: "green" # optional custom CSS class for card, useful with custom stylesheet
-            # background: red # optional color for card to set color directly without custom stylesheet

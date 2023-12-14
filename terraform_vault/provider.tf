@@ -25,11 +25,11 @@ provider "helm" {
 }
 provider "vault" {
   alias = "vault-transit"
-  address = "xx"
-  token = "xx"
+  address = "http://192.168.1.167:32224"
+  token = "hvs.gdVsRkk8rZZzNVpCwiSadW4P"
 }
 provider "vault" {
   alias = "vault-1"
-  address = "xx"
-  token = "xx"
+  address = "http://192.168.1.249:32355"
+  token = "hvs.K7KiA9VHM2HC2zFKRrcd2TUq"
 }
