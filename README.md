@@ -101,3 +101,8 @@ CHART_NAME=gitlab DEFAULT=gitlab/gitlab task deploy
 
 ##### s3 minio
 CHART_NAME=minio DEFAULT=bitnami/minio task deploy 
+##### postgers
+ CHART_NAME=postgresql DEFAULT=bitnami/postgresql  task deploy
+
+##### semaphore
+CHART_NAME=semaphore DEFAULT=semaphore-light/semaphore  task deploy

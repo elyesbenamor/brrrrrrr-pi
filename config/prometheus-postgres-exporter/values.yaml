@@ -27,13 +27,13 @@ automountServiceAccountToken: false
 
 serviceMonitor:
   # When set true then use a ServiceMonitor to configure scraping
-  enabled: true
+  enabled: false
   # Set the namespace the ServiceMonitor should be deployed
-  namespace: kube-prometheus-stack
+  # namespace: monitoring
   # Set how frequently Prometheus should scrape
-  interval: 30s
+  # interval: 30s
   # Set path to cloudwatch-exporter telemtery-path
-  telemetryPath: /metrics
+  # telemetryPath: /metrics
   # Set labels for the ServiceMonitor, use this to define your scrape label for Prometheus Operator
   # labels:
   # Set timeout for scrape

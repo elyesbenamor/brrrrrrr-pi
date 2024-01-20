@@ -74,18 +74,6 @@ directories:
       version: 0.19.1
     path: trivy-operator
   - helmChart:
-      appVersion: 2.9.1
-      version: 1.13.1
-    path: harbor
-  - helmChart:
-      appVersion: 3.0.0
-      version: 3.0.3
-    path: litmus
-  - helmChart:
-      appVersion: v1.44.0
-      version: 3.7.78
-    path: netdata
-  - helmChart:
       appVersion: v0.10.4
       version: 0.4.7
     path: vault-raft-snapshot-agent
@@ -93,5 +81,9 @@ directories:
       appVersion: v0.15.0
       version: 5.3.0
     path: prometheus-postgres-exporter
+  - helmChart:
+      appVersion: 0.36.2
+      version: 0.32.2
+    path: signoz
   path: config
 kind: LockConfig

@@ -1,0 +1,14 @@
+clickhouse:
+  password: signoz123.
+  enabled: true 
+  service:
+    type: NodePort
+  persistence:
+    storageClass: "openebs-hostpath"
+queryService:
+  persistence:
+    enabled: true
+    storageClass: "openebs-hostpath" 
+frontend:
+  service:
+    type: NodePort
