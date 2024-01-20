@@ -1,23 +1,4 @@
 [all]
-192.168.0.202 ansible_connection=ssh        ansible_user=pi
-192.168.0.200 ansible_connection=ssh        ansible_user=pi
-192.168.0.201 ansible_connection=ssh        ansible_user=pi
-192.168.0.203 ansible_connection=ssh        ansible_user=pi
-
-[master]
-192.168.0.202 ansible_connection=ssh        ansible_user=pi
-[workers]
-192.168.0.200 ansible_connection=ssh        ansible_user=pi
-192.168.0.201 ansible_connection=ssh        ansible_user=pi
-192.168.0.203 ansible_connection=ssh        ansible_user=pi
-
-[worker2]
-192.168.0.200 ansible_connection=ssh        ansible_user=pi
-
-[worker1]
-192.168.0.201 ansible_connection=ssh        ansible_user=pi
-
-[worker3]
-192.168.0.203 ansible_connection=ssh        ansible_user=pi
-[localhost]
-127.0.0.1   ansible_connection=local        ansible_user=ebenamor
+10.222.3.188 ansible_connection=ssh        ansible_user=root
+10.222.3.26 ansible_connection=ssh        ansible_user=root
+10.222.3.125 ansible_connection=ssh        ansible_user=root

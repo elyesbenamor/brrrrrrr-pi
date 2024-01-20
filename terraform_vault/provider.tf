@@ -15,12 +15,12 @@ terraform {
   }
 }
 provider "kubernetes" {
-  config_path    = "~/.kube/config"
+  config_path    = "~/.kube/.switch_tmp/config.4126209511.tmp"
   config_context = "kubernetes-admin@kubernetes"
 }
 provider "helm" {
   kubernetes {
-    config_path = "~/.kube/config"
+    config_path = "~/.kube/.switch_tmp/config.4126209511.tmp"
   }
 }
 provider "vault" {

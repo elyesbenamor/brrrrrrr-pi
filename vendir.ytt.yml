@@ -126,3 +126,10 @@
     version: 5.3.0
     repository:
       url: https://prometheus-community.github.io/helm-charts
+
+- name: signoz  
+  helmChart:
+    name: signoz 
+    version: 0.32.2
+    repository:
+      url: https://charts.signoz.io

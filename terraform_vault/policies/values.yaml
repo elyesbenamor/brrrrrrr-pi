@@ -28,7 +28,7 @@ server:
       }
       seal "transit" {
         address = "http://vault-internal.vault-transit.svc.cluster.local:8200"
-        token = "hvs.CAESIKTH5bdfSEBKCyaIqJ7n00zMnxcN1TQ3JwIe19-H01G0Gh4KHGh2cy5JcVp2NE9kRlk1cWM1eWRONVQ0QjdLcWw"
+        token = "hvs.CAESIIfEnemQdNWlXxm6na_gFMMADWKDReIAGdVhUfH9HHAPGh4KHGh2cy40NFpJSVkwOW9Id3ZJOFFITUhsa2tOa2w"
         disable_renewal = "false"
         key_name = "vault-1"
         mount_path = "transit/vault-1/"

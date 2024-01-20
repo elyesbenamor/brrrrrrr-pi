@@ -5,15 +5,14 @@ resources:
   requests:
     cpu: "500m"
     memory: "1Gi"
-service:
-  type: LoadBalancer
-replicaCount: 2
-autoscaling:
-  enabled: true
-  minReplicas: 2
-  maxReplicas: 4
-  targetCPU: "80"
-  targetMemory: "80"
-
+replicaCount: 1           
+auth:
+  adminPassword: ref+vault://kubernetes/adminpassword?proto=http#/password
 global:
   storageClass: "openebs-hostpath"
+postgresql:
+  auth:
+    postgresPassword: ref+vault://kubernetes/adminpassword?proto=http#/password
+    password: ref+vault://kubernetes/adminpassword?proto=http#/password
+service:
+  type: NodePort

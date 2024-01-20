@@ -2,20 +2,16 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-semaphore:
-  replicaCount: 2
-  service:
-    loadBalancerIP: 192.168.1.220
-
- 
+semaphore: 
   env:
-    SEMAPHORE_DB_USER: postgres
-    SEMAPHORE_DB_PASS: ref+vault://kubernetes/semaphore?proto=http#/databasepass
-    # depoloy postgresql using https://artifacthub.io/packages/helm/bitnami/postgresql
-    SEMAPHORE_ADMIN_PASSWORD: ref+vault://kubernetes/semaphore?proto=http#/password
-    SEMAPHORE_ADMIN_NAME: ref+vault://kubernetes/semaphore?proto=http#/username
+    SEMAPHORE_DB_USER: ref+vault://kubernetes/semaphore?proto=http#/username
+    SEMAPHORE_DB_PASS: ref+vault://kubernetes/semaphore?proto=http#/password
+    SEMAPHORE_DB: ref+vault://kubernetes/semaphore?proto=http#/database
     SEMAPHORE_ACCESS_KEY_ENCRYPTION: ref+vault://kubernetes/semaphore?proto=http#/accesskey
-
-
   persistence:
     storageClass: "openebs-hostpath"
+  service:
+    type: ClusterIP
+    port: "3000"
+  image:
+    tag: "v2.9.19"
