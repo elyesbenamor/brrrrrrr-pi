@@ -85,5 +85,9 @@ directories:
       appVersion: 0.36.2
       version: 0.32.2
     path: signoz
+  - helmChart:
+      appVersion: 0.20.0-alpha.0
+      version: 0.20.0-alpha.0
+    path: vcluster
   path: config
 kind: LockConfig

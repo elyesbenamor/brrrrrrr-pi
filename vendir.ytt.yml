@@ -133,3 +133,9 @@
     version: 0.32.2
     repository:
       url: https://charts.signoz.io
+- name: vcluster  
+  helmChart:
+    name: vcluster 
+    version: 0.20.0-alpha.0
+    repository:
+      url: https://charts.loft.sh
